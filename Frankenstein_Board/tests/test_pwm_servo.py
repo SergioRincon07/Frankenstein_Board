@@ -2,7 +2,10 @@
 """Test standalone: sweep del servo PWM (low -> high -> center)."""
 
 import sys, os, time
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Raíz del repo (contiene la carpeta Frankenstein_Board/)
+_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if _ROOT not in sys.path:
+    sys.path.insert(0, _ROOT)
 
 from Frankenstein_Board.board import FrankensteinPwmServoDriver
 
