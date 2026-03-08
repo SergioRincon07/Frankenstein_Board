@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-"""Test standalone: sweep del servo PWM (low -> high -> center)."""
+"""Test standalone: sweep del servo PWM (low -> high -> center). Requiere sudo (acceso I2C/GPIO)."""
 
 import sys, os, time
+
+if os.geteuid() != 0:
+    print("Este test necesita acceso a hardware. Ejecuta con: sudo python3 ...")
+    sys.exit(1)
+
 # Raíz del repo (contiene la carpeta Frankenstein_Board/)
 _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if _ROOT not in sys.path:

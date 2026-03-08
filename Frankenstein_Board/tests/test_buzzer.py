@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-"""Test standalone: 3 beeps cortos."""
+"""Test standalone: 3 beeps cortos. Requiere sudo (acceso GPIO /dev/mem)."""
 
 import sys, os, time
+
+if os.geteuid() != 0:
+    print("Este test necesita acceso a GPIO. Ejecuta con: sudo python3 ...")
+    sys.exit(1)
+
 # Raíz del repo (contiene la carpeta Frankenstein_Board/)
 _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if _ROOT not in sys.path:
