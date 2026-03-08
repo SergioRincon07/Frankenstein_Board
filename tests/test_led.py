@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""Test standalone: ciclo de colores en los 2 LEDs RGB."""
+
+import sys, os, time
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from Frankenstein_Board.board import FrankensteinLedDriver
+
+STEP = 0.4
+COLORS = [
+    ("rojo",    255, 0,   0),
+    ("verde",   0,   255, 0),
+    ("azul",    0,   0,   255),
+    ("blanco",  255, 255, 255),
+    ("apagado", 0,   0,   0),
+]
+
+led = FrankensteinLedDriver()
+try:
+    for name, r, g, b in COLORS:
+        for i in range(led.NUM_PIXELS):
+            led.set_pixel(i, r, g, b)
+        led.show()
+        print(f"  {name}")
+        time.sleep(STEP)
+    print("PASS | Secuencia RGB completada")
+except Exception as exc:
+    print(f"FAIL | {exc!r}")
+    sys.exit(1)
+finally:
+    led.shutdown()

@@ -1,0 +1,44 @@
+# ROS2 workspace
+build/
+install/
+log/
+
+# Colcon specific
+.colcon/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+*.egg
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Test results
+*.test_results
+test_results/
+
+# Backup files
+*.bak
+*.orig
+
+# Environment
+.env
+venv/
+env/
