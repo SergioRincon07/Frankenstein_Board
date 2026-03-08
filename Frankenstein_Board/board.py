@@ -23,29 +23,18 @@ import sys
 import time
 from typing import Dict, Optional
 
-# Buscar HiwonderSDK en rutas típicas (repo hermano TurboPi_Code_Python en la Pi)
-if "HiwonderSDK" not in sys.modules:
-    _board_dir = os.path.dirname(os.path.abspath(__file__))
-    _repo_root = os.path.dirname(_board_dir)
-    _turbopi_root = os.path.dirname(_repo_root)
-    for _candidate in (
-        os.environ.get("TURBOPI_CODE_PYTHON"),
-        os.path.join(_turbopi_root, "TurboPi_Code_Python"),
-        os.path.join(_repo_root, "TurboPi_Code_Python"),
-    ):
-        if _candidate and os.path.isdir(_candidate):
-            _sdk_dir = os.path.join(_candidate, "HiwonderSDK")
-            if os.path.isdir(_sdk_dir) and _candidate not in sys.path:
-                sys.path.insert(0, _candidate)
-                break
-
 import smbus
 from smbus2 import SMBus, i2c_msg
 
 try:
-    import HiwonderSDK.Board as _HwBoard
+    import Hiwonder_Board.board as _HwBoard
 except ImportError:
     _HwBoard = None
+
+try:
+    import Yahboom_Board.board as _YHBoard
+except ImportError:
+    _YHBoard = None    
 
 # ---------------------------------------------------------------------------
 # Constantes globales
