@@ -48,6 +48,10 @@ except ImportError:
 class FrankensteinMotorDriver:
     """Control de 4 motores DC con encoder. Delega en Yahboom_Board.Board."""
 
+    # Rangos válidos: si se pasa, no se envía y se avisa
+    SPEED_MIN, SPEED_MAX = -1000, 1000
+    PWM_MIN, PWM_MAX = -3600, 3600
+
     def __init__(
         self,
         bus_num: int = 1,
@@ -64,9 +68,27 @@ class FrankensteinMotorDriver:
         self._yahboom.configure(motor_type=motor_type)
 
     def set_speed(self, m1: int = 0, m2: int = 0, m3: int = 0, m4: int = 0) -> None:
+        vals = (m1, m2, m3, m4)
+        for v in vals:
+            if not (self.SPEED_MIN <= int(v) <= self.SPEED_MAX):
+                sys.stderr.write(
+                    "Motor: valor fuera de rango. Límite velocidad: {} a {}\n".format(
+                        self.SPEED_MIN, self.SPEED_MAX
+                    )
+                )
+                return
         self._yahboom.set_speed(m1, m2, m3, m4)
 
     def set_pwm(self, m1: int = 0, m2: int = 0, m3: int = 0, m4: int = 0) -> None:
+        vals = (m1, m2, m3, m4)
+        for v in vals:
+            if not (self.PWM_MIN <= int(v) <= self.PWM_MAX):
+                sys.stderr.write(
+                    "Motor: valor fuera de rango. Límite PWM: {} a {}\n".format(
+                        self.PWM_MIN, self.PWM_MAX
+                    )
+                )
+                return
         self._yahboom.set_pwm(m1, m2, m3, m4)
 
     def stop(self) -> None:
